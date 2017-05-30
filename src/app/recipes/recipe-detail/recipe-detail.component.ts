@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Recipe} from '../recipe.model';
 import {Ingridient} from '../../shared/ingredient.model';
-import {ShoppingListService} from '../../shared/shoppingListService.service';
+import {ShoppingListService} from '../../shopping-list/shoppingListService.service';
 import {RecipeService} from '../../shared/recipeService.service';
 import {ActivatedRoute, Data, Params, Router} from '@angular/router';
 
@@ -19,7 +19,7 @@ export class RecipeDetailComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params.subscribe(          //Слушает входящие параметры из линка
+    this.route.params.subscribe(          // Слушает входящие параметры из линка
       (params: Params) => {
         this.id = +params['id'];
         this.choosenRecipeDetail = this.recipeService.getRecipeID(this.id);
