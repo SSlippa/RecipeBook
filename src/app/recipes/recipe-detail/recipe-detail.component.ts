@@ -16,7 +16,8 @@ export class RecipeDetailComponent implements OnInit {
 
   // constructor(private shoppingListService: ShoppingListService) { }
   constructor(private recipeService: RecipeService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(          // Слушает входящие параметры из линка
@@ -34,6 +35,7 @@ export class RecipeDetailComponent implements OnInit {
 
   onDeleteRecipe() {
     this.recipeService.deleteRecipe(this.id);
+    this.router.navigate(['../'], {relativeTo: this.route});
   }
 
 }

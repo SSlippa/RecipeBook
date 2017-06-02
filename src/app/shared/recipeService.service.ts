@@ -45,4 +45,14 @@ export class RecipeService {
       this.recipes.splice(index, 1);
       this.recipesChanged.next(this.recipes.slice());
     }
+
+    addRecipe(recipe: Recipe) {
+      this.recipes.push(recipe);
+      this.recipesChanged.next(this.recipes.slice());
+  }
+
+  updateRecipe(index: number , newRecipe: Recipe) {
+    this.recipes[index] = newRecipe;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 }
