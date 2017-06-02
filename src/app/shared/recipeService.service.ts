@@ -2,9 +2,12 @@ import {Recipe} from '../recipes/recipe.model';
 import {Injectable} from '@angular/core';
 import {Ingridient} from './ingredient.model';
 import {ShoppingListService} from '../shopping-list/shoppingListService.service';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class RecipeService {
+  recipesChanged = new Subject<Recipe[]>();
+
     private recipes: Recipe[] = [
     new Recipe('Pan Cake', 'Tasty', 'http://img1.russianfood.com/dycontent/images_upl/28/big_27831.jpg',
     [
@@ -30,11 +33,16 @@ export class RecipeService {
       return this.recipes.slice();
     }
 
-  getRecipeID(index: number) {
+  getRecipe(index: number) {
     return this.recipes[index];
   }
 
     addIngredientsToShoppList(ingredients: Ingridient[]) {
       this.slService.addIngredients(ingredients);
+    }
+
+    deleteRecipe(index: number) {
+      this.recipes.splice(index, 1);
+      this.recipesChanged.next(this.recipes.slice());
     }
 }

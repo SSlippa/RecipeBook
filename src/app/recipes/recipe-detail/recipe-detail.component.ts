@@ -22,7 +22,7 @@ export class RecipeDetailComponent implements OnInit {
     this.route.params.subscribe(          // Слушает входящие параметры из линка
       (params: Params) => {
         this.id = +params['id'];
-        this.choosenRecipeDetail = this.recipeService.getRecipeID(this.id);
+        this.choosenRecipeDetail = this.recipeService.getRecipe(this.id);
       }
     );
 }
@@ -31,5 +31,9 @@ export class RecipeDetailComponent implements OnInit {
     // this.recipeService.addIngredientsToShoppList(this.choosenRecipeDetail.ingredients);
     this.recipeService.addIngredientsToShoppList(this.choosenRecipeDetail.ingredients);
 }
+
+  onDeleteRecipe() {
+    this.recipeService.deleteRecipe(this.id);
+  }
 
 }
