@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {RecipeService} from '../../shared/recipeService.service';
-import {Recipe} from '../recipe.model';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -65,7 +64,7 @@ export class RecipeEditComponent implements OnInit {
       const recipe = this.recipeService.getRecipe(this.id);
       recipeName = recipe.name;
       imgLink = recipe.imagePath;
-      description = recipe.description;
+      description = recipe.descriptions;
       if (recipe['ingredients']) {    // if (recipe.ingredients) need to try
         for (let ingredient of recipe.ingredients) {
           recipeingredients.push(
@@ -81,7 +80,7 @@ export class RecipeEditComponent implements OnInit {
       this.recipeForm = new FormGroup({
         'name': new FormControl(recipeName, Validators.required),
       'imagePath': new FormControl(imgLink, Validators.required),
-      'description': new FormControl(description, Validators.required),
+      'descriptions': new FormControl(description, Validators.required),
       'ingredients': recipeingredients
     });
   }

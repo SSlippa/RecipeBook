@@ -3,6 +3,9 @@ import {Injectable} from '@angular/core';
 import {Ingridient} from './ingredient.model';
 import {ShoppingListService} from '../shopping-list/shoppingListService.service';
 import {Subject} from 'rxjs/Subject';
+import {Http, Response} from '@angular/http';
+import 'rxjs/Rx';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class RecipeService {
@@ -27,7 +30,8 @@ export class RecipeService {
       ])
   ];
 
-    constructor(private slService: ShoppingListService) {}
+    constructor(private slService: ShoppingListService,
+                private http: Http) {}
 
     getRecipes() {
       return this.recipes.slice();
@@ -55,4 +59,46 @@ export class RecipeService {
     this.recipes[index] = newRecipe;
     this.recipesChanged.next(this.recipes.slice());
   }
+
+  storeRecipes(recipes: Recipe[]) {
+    return this.http.put('https://recipebook-b8c2f.firebaseio.com/data.json', recipes); //  {headers: headers}
+  }
+
+  // getRecipesFromServer() {
+  //   return this.http.get('https://recipebook-b8c2f.firebaseio.com/data.json').map(
+  //     (response: Response) => {
+  //       const data = response.json();
+  //       return data;
+  //     }
+  //   ).catch(
+  //     (error: Response) => {
+  //       return Observable.throw('Something Went Wrong');
+  //     }
+  //   );
+  // }
+  getRecipesFromServer() {
+    return this.http.get('https://recipebook-b8c2f.firebaseio.com/data.json').map(
+      (response: Response) => {
+        const recipes: Recipe[] = response.json();
+        for ( let recipe of recipes) {
+          if (!recipe.ingredients) {
+            recipe.ingredients = [];
+          }
+        }
+        return recipes;
+      }
+    )
+      .subscribe(
+      (recipes: Recipe[]) => {
+
+        this.setUpRecepiesFromServer(recipes);
+      }
+    );
+  }
+
+      setUpRecepiesFromServer(recipes: Recipe[]) {
+      this.recipes = recipes;
+      this.recipesChanged.next(this.recipes.slice());
+  }
+
 }
