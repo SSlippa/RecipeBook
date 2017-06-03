@@ -6,6 +6,7 @@ import {Subject} from 'rxjs/Subject';
 import {Http, Response} from '@angular/http';
 import 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
+import {AuthService} from '../auth/auth.service';
 
 @Injectable()
 export class RecipeService {
@@ -31,7 +32,8 @@ export class RecipeService {
   ];
 
     constructor(private slService: ShoppingListService,
-                private http: Http) {}
+                private http: Http,
+                private authService: AuthService) {}
 
     getRecipes() {
       return this.recipes.slice();
@@ -61,7 +63,9 @@ export class RecipeService {
   }
 
   storeRecipes(recipes: Recipe[]) {
-    return this.http.put('https://recipebook-b8c2f.firebaseio.com/data.json', recipes); //  {headers: headers}
+    const token =  this.authService.getToken();
+
+    return this.http.put('https://recipebook-b8c2f.firebaseio.com/data.json?auth=' + token, recipes); //  {headers: headers}
   }
 
   // getRecipesFromServer() {
@@ -77,7 +81,9 @@ export class RecipeService {
   //   );
   // }
   getRecipesFromServer() {
-    return this.http.get('https://recipebook-b8c2f.firebaseio.com/data.json').map(
+     const token =  this.authService.getToken();
+
+    return this.http.get('https://recipebook-b8c2f.firebaseio.com/data.json?auth=' + token).map(
       (response: Response) => {
         const recipes: Recipe[] = response.json();
         for ( let recipe of recipes) {

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {RecipeService} from '../shared/recipeService.service';
 import {Recipe} from '../recipes/recipe.model';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,8 @@ import {Recipe} from '../recipes/recipe.model';
 export class HeaderComponent implements OnInit {
   message = '';
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(private recipeService: RecipeService,
+              private authService: AuthService) { }
 
   ngOnInit() {
   }
@@ -36,6 +38,10 @@ export class HeaderComponent implements OnInit {
     setTimeout(() => {
       this.message = '';
     }, 2000);
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 }
 
