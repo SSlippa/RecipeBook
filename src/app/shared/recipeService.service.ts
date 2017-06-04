@@ -17,19 +17,7 @@ import {AuthService} from '../auth/auth.service';
     new Recipe('Pan Cake', 'Tasty', 'http://img1.russianfood.com/dycontent/images_upl/28/big_27831.jpg',
     [
       new Ingridient('Milk', 1)
-    ]),
-    new Recipe('Schnitzel', 'Very Big',
-      'http://www.daringgourmet.com/wp-content/uploads/2014/03/Schnitzel-7_edited.jpg',
-      [
-        new Ingridient('Schnitzel', 1),
-        new Ingridient('French Fries', 20)
-      ]),
-    new Recipe('Hamburger', 'So Mmmm',
-      'https://www.kingsford.com/wp-content/uploads/2014/11/kfd-howtohamburger-Burgers_5_0391-1024x621.jpg',
-      [
-        new Ingridient('Kotleta', 1),
-        new Ingridient('French Fries', 20)
-      ])
+    ])
   ];
 
     constructor(private slService: ShoppingListService,
