@@ -9,8 +9,9 @@ import {Observable} from 'rxjs/Observable';
 import {AuthService} from '../auth/auth.service';
 
 @Injectable()
-export class RecipeService {
+  export class RecipeService {
   recipesChanged = new Subject<Recipe[]>();
+  email: string;
 
     private recipes: Recipe[] = [
     new Recipe('Pan Cake', 'Tasty', 'http://img1.russianfood.com/dycontent/images_upl/28/big_27831.jpg',
@@ -64,8 +65,7 @@ export class RecipeService {
 
   storeRecipes(recipes: Recipe[]) {
     const token =  this.authService.getToken();
-
-    return this.http.put('https://recipebook-b8c2f.firebaseio.com/data.json?auth=' + token, recipes); //  {headers: headers}
+    return this.http.put('https://recipebook-b8c2f.firebaseio.com/' + this.email + '.json?auth=' + token, recipes); //  {headers: headers}
   }
 
   // getRecipesFromServer() {
@@ -83,7 +83,7 @@ export class RecipeService {
   getRecipesFromServer() {
      const token =  this.authService.getToken();
 
-    return this.http.get('https://recipebook-b8c2f.firebaseio.com/data.json?auth=' + token).map(
+    return this.http.get('https://recipebook-b8c2f.firebaseio.com/' + this.email + '.json?auth=' + token).map(
       (response: Response) => {
         const recipes: Recipe[] = response.json();
         for ( let recipe of recipes) {
