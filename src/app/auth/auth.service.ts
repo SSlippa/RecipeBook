@@ -2,9 +2,11 @@ import * as firebase from 'firebase';
 import {Router} from '@angular/router';
 import {Injectable} from '@angular/core';
 
+
 @Injectable()
 export class AuthService {
   token: string;
+  errorMessage: string;
 
   constructor (private router: Router) {}
 
@@ -24,7 +26,11 @@ export class AuthService {
       }
     )
       .catch(
-        error => console.log(error)
+        error => {
+          console.log(error);
+          console.log('Wrong name or password');
+          this.errorMessage = 'Wrong name or password';
+        }
       );
   }
 

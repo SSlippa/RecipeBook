@@ -4,7 +4,7 @@ import {Directive, ElementRef, HostBinding, HostListener, Renderer2} from '@angu
   selector: '[appDropdown]'
 })
 
-export class DrowdownDirective {
+export class DropdownDirective {
 
   @HostBinding('class.open') clicked = false;
 

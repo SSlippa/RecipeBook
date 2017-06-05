@@ -11,6 +11,7 @@ import {RecipeService} from '../../shared/recipeService.service';
 export class SigninComponent implements OnInit {
   email: string;
   formatedEmail: string;
+  errorMessage =  '';
 
   constructor(private authService: AuthService,
               private recipeService: RecipeService) { }
@@ -27,7 +28,10 @@ export class SigninComponent implements OnInit {
     this.authService.signinUser(email, password);
     setTimeout(() => {
       this.recipeService.getRecipesFromServer();
-    }, 500);
-   // this.recipeService.getRecipesFromServer();
+      this.errorMessage = this.authService.errorMessage;
+    }, 1500);
+    setTimeout(() => {
+      this.errorMessage = '';
+    }, 3000);
   }
 }
