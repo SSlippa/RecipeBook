@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
 import {RecipeService} from './shared/recipeService.service';
 import {ShoppingListService} from './shopping-list/shoppingListService.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -13,15 +12,13 @@ import {AuthGuardService} from './auth/auth-guard.service';
 import {SharedModule} from './shared/shared.module';
 import {ShoppingListModule} from './shopping-list/shopping-list.module';
 import {AuthModule} from './auth/auth.module';
-import { HomeComponent } from './home/home.component';
+import {CoreModule} from './core/core.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    PageNotFoundComponent,
-    HomeComponent
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -29,9 +26,10 @@ import { HomeComponent } from './home/home.component';
     AppRoutingModule,
     SharedModule,
     ShoppingListModule,
-    AuthModule
+    AuthModule,
+    CoreModule
   ],
-  providers: [ShoppingListService, RecipeService, AuthService, AuthGuardService],
+  providers: [ShoppingListService, RecipeService, AuthService, AuthGuardService],  // Good practice move it to core module.
   bootstrap: [AppComponent]
 })
 export class AppModule { }
