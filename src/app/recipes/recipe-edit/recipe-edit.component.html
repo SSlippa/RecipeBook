@@ -45,6 +45,7 @@
           <div
             style="margin-bottom: 10px;"
             class="row"
+            [@list1]
             *ngFor="let ingredientCtrl of getControls(); let i = index"
             [formGroupName]="i">
             <div class="col-xs-8">
