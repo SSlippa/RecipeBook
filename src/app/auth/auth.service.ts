@@ -6,13 +6,30 @@ import {Injectable} from '@angular/core';
 @Injectable()
 export class AuthService {
   token: string;
-  errorMessage: string;
+  message: string;
+  message2: string;
 
   constructor (private router: Router) {}
 
   signupUser(email: string, password: string) {
-    firebase.auth().createUserWithEmailAndPassword(email, password).catch(
-      error => console.log(error)
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(
+        response => {
+          console.log(response);
+          this.message = 'Registration accepted';
+        }
+      )
+      .catch(
+      (error: any) => {
+        let errorCode = error.code;
+        let errorMessage = error.message;
+      if (errorCode === 'auth/weak-password') {
+        alert ('The password is too weak');
+      } else {
+        alert (errorMessage);
+    }
+      console.log(error);
+  }
     );
   }
 
@@ -26,10 +43,15 @@ export class AuthService {
       }
     )
       .catch(
-        error => {
+        (error: any) => {
+          let errorCode = error.code;
+          let errorMessage = error.message;
+          if (errorCode === 'auth/wrong-password') {
+            alert ('Wrong password');
+          } else {
+            alert(errorMessage);
+          }
           console.log(error);
-          console.log('Wrong name or password');
-          this.errorMessage = 'Wrong name or password';
         }
       );
   }
@@ -37,6 +59,7 @@ export class AuthService {
   logout() {
     firebase.auth().signOut();
     this.token = null;
+    this.router.navigate(['/']);
   }
 
   getToken() {

@@ -11,6 +11,12 @@ import {AuthService} from '../../auth/auth.service';
 export class HeaderComponent implements OnInit {
   message = '';
 
+  isIn = false;   // store state
+  toggleState() { // click handler
+    let bool = this.isIn;
+    this.isIn = bool === false ? true : false;
+  }
+
   constructor(private recipeService: RecipeService,
               private authService: AuthService) { }
 

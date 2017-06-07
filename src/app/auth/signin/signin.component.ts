@@ -28,7 +28,7 @@ export class SigninComponent implements OnInit {
     this.authService.signinUser(email, password);
     setTimeout(() => {
       this.recipeService.getRecipesFromServer();
-      this.errorMessage = this.authService.errorMessage;
+      this.errorMessage = this.authService.message;
     }, 1500);
     setTimeout(() => {
       this.errorMessage = '';
