@@ -13,12 +13,7 @@ import {AuthService} from '../auth/auth.service';
   recipesChanged = new Subject<Recipe[]>();
   email: string;
 
-    private recipes: Recipe[] = [
-    new Recipe('Pan Cake', 'Tasty', 'http://img1.russianfood.com/dycontent/images_upl/28/big_27831.jpg',
-    [
-      new Ingridient('Milk', 1)
-    ])
-  ];
+    private recipes: Recipe[] = [];
 
     constructor(private slService: ShoppingListService,
                 private http: Http,
@@ -49,6 +44,11 @@ import {AuthService} from '../auth/auth.service';
   updateRecipe(index: number , newRecipe: Recipe) {
     this.recipes[index] = newRecipe;
     this.recipesChanged.next(this.recipes.slice());
+  }
+
+  freshRecipesList() {
+      this.recipes = [];
+      this.recipesChanged.next(this.recipes.slice());
   }
 
   storeRecipes(recipes: Recipe[]) {
