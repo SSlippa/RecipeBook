@@ -16,7 +16,11 @@ export class AuthService {
       .then(
         response => {
           console.log(response);
-          this.message = 'Registration accepted';
+          swal(
+            'Registration accepted!',
+            '',
+            'success'
+          );
         }
       )
       .catch(
@@ -24,10 +28,10 @@ export class AuthService {
         let errorCode = error.code;
         let errorMessage = error.message;
       if (errorCode === 'auth/weak-password') {
-        alert ('The password is too weak');
+        swal ('Oops...', 'The password is too weak', 'error');
       } else {
        // alert (errorMessage);
-        swal(errorMessage);
+        swal('Oops...', errorMessage,  'error');
     }
       console.log(error);
   }
@@ -37,6 +41,11 @@ export class AuthService {
   signinUser(email: string, password: string) {
     firebase.auth().signInWithEmailAndPassword(email, password).then(
       response => {
+        swal(
+          'You are inside',
+          '',
+          'success'
+        );
         this.router.navigate(['/']);
         firebase.auth().currentUser.getToken().then(
           (token: string) => this.token = token
@@ -48,9 +57,9 @@ export class AuthService {
           let errorCode = error.code;
           let errorMessage = error.message;
           if (errorCode === 'auth/wrong-password') {
-            alert ('Wrong password');
+            swal ('Oops...', 'Wrong password', 'error');
           } else {
-            alert(errorMessage);
+            swal('Oops...', errorMessage, 'error');
           }
           console.log(error);
         }
