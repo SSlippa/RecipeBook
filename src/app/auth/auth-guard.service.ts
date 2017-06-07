@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from '@angular/router';
 import {AuthService} from './auth.service';
-import {ifTrue} from "codelyzer/util/function";
+// import { default as swal } from 'sweetalert2';
+import swal, { SweetAlertOptions } from 'sweetalert2';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
@@ -10,7 +11,7 @@ export class AuthGuardService implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state:  RouterStateSnapshot) {
     if (!this.authService.isAuthenticated()) {
-      alert('You need to Login');
+      swal('Error');
     }
     return this.authService.isAuthenticated();
   }

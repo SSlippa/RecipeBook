@@ -1,7 +1,7 @@
 import * as firebase from 'firebase';
 import {Router} from '@angular/router';
 import {Injectable} from '@angular/core';
-
+import swal, { SweetAlertOptions } from 'sweetalert2';
 
 @Injectable()
 export class AuthService {
@@ -26,7 +26,8 @@ export class AuthService {
       if (errorCode === 'auth/weak-password') {
         alert ('The password is too weak');
       } else {
-        alert (errorMessage);
+       // alert (errorMessage);
+        swal(errorMessage);
     }
       console.log(error);
   }
