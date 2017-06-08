@@ -21,6 +21,7 @@ export class AuthService {
             '',
             'success'
           );
+          this.router.navigate(['/recipes']);
         }
       )
       .catch(
